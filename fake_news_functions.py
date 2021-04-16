@@ -1,4 +1,4 @@
-import regex
+import re
 import pickle
 from nltk.corpus import stopwords
 import string
