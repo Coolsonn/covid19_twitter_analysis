@@ -25,12 +25,14 @@ def correct_grammar(text):
 punctuation = string.punctuation
 
 def remove_punctuations(text):
+    punctuation = string.punctuation
     text = "".join([punc for punc in text if not punc in punctuation])
     return text
 
 stop_words = stopwords.words("English")
 
 def remove_stopwords(text):
+    stop_words = stopwords.words("English")
     text = text.split()
     text = " ".join([word for word in text if not word in stop_words])
     return text
