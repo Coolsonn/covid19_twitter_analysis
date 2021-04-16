@@ -4,6 +4,9 @@ from nltk.corpus import stopwords
 import string
 import keras
 
+def del_url(text):
+    x = re.sub(r'http\S+', "",text)
+    return x
 
 def find_mentions(tweet):
     mentions = re.findall(r'@\w+', tweet)
