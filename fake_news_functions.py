@@ -3,14 +3,20 @@ import pickle
 from nltk.corpus import stopwords
 import string
 import keras
+import language_tool_python
+from keras.preprocessing.sequence import pad_sequences
+from keras.models import load_model
 
-def del_url(text):
-    x = re.sub(r'http\S+', "",text)
-    return x
+model4 = load_model("fake_news_model.h5")
+tool = language_tool_python.LanguageTool('en-US')
 
 def find_mentions(tweet):
     mentions = re.findall(r'@\w+', tweet)
     return mentions
+
+def del_url(text):
+    x = re.sub(r'http\S+', "",text)
+    return x
 
 def find_hashtags(tweet):
     hashtags = re.findall(r'#\w+', tweet)
@@ -44,6 +50,8 @@ def load_tokenizer(file_name):
     with open(file_name, 'rb') as handle:
         tokenizer = pickle.load(handle)
     return tokenizer
+
+tokenizer = load_tokenizer("fake_news_tokenizer.pickle")
 
 def process_single_tweet(text):
     to_process = text
