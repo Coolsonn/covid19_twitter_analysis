@@ -1,9 +1,8 @@
 import kivy
 from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
+from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+
 from fake_news_functions import *
 import keras
 from keras.models import load_model
@@ -17,55 +16,28 @@ from fake_news_functions import del_url, remove_mentions, correct_grammar, remov
 tokenizer = load_tokenizer("fake_news_tokenizer.pickle")
 from keras.preprocessing.text import Tokenizer
 
-
-
 tool = language_tool_python.LanguageTool('en-US')
 
-class MyGridLayout(GridLayout):
-    # Initialize inifte keywords
-    def __init__(self, **kwargs):
-        # Call grid layout constructor
-        super(MyGridLayout, self).__init__(**kwargs)
+class MyLayout(Widget):
+    tweet_text = ObjectProperty(None)
 
-        # Set colums
-        self.cols = 1
+    def press(self):
+        tweet_text = self.tweet_input.text
 
-        # Create a second gridlayout
-        self.top_grid = GridLayout()
-        self.top_grid.cols = 2
-
-
-        # Add Twitter text widget
-        self.top_grid.add_widget(Label(text="Twitter text: "))
-        # Add input box
-        self.tweet_text = TextInput(multiline=True)
-        self.top_grid.add_widget(self.tweet_text)
-        
-        # Add the new top_grid to our app
-        self.add_widget(self.top_grid)
-
-        # Create a Submit Button
-        self.submit = Button(text="Submit", font_size=32)
-        # Bind the Button
-        self.submit.bind(on_press=self.press)
-        self.add_widget(self.submit)
-    def press(self, instance):
-        tweet_text = self.tweet_text.text
-
-        # tweet_text_processed = process_single_tweet(tweet_text)
         model4 = load_model("fake_news_model.h5")
         predict_tweet = predict_real_fake(tweet_text)
+        self.ids.tweet_predicted_label.text = f'''
+            tweets text: "{tweet_text}"
+        {predict_tweet}'''
 
-        self.add_widget(Label(text=f'''{tweet_text}
-        {predict_tweet}'''))
 
         # Clear the input boxes
-        self.tweet_text.text = ""
+        self.tweet_input.text = ""
 
 
 class MyApp(App):
     def build(self):
-        return MyGridLayout()
+        return MyLayout()
 
 if __name__ == '__main__':
     MyApp().run()
