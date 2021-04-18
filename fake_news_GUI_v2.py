@@ -22,11 +22,11 @@ class MyLayout(Widget):
         tweet_text = self.tweet_input.text
 
         predict_fake = predict_real_fake(tweet_text, model_fake_news, tokenizer_fake_news)
-        predict_sentiment = predict_sentiment(tweet_text, model_fake_news, tokenizer_fake_news)
+        predict_tweet_sentiment = predict_sentiment(tweet_text, model_sentiment, tokenizer_sentiment)
         self.ids.tweet_predicted_label.text = f'''
             tweets text: "{tweet_text}"
-        {predict_tweet}
-        Sentiment: {predict_sentiment}'''
+        {predict_fake}
+        Sentiment: {predict_tweet_sentiment}'''
 
 
         # Clear the input boxes
