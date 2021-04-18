@@ -7,11 +7,11 @@ from fake_news_functions import *
 import keras
 from keras.models import load_model
 
-tokenizer_fake_news = load_tokenizer("fake_news_tokenizer.pickle")
-tokenizer_sentiment = load_tokenzier("sentiment_tokenizer.pickle")
+tokenizer_fake_news = load_tokenizer("Fake_News_Detection/fake_news_tokenizer.pickle")
+tokenizer_sentiment = load_tokenzier("Sentiment_Detection/sentiment_tokenizer.pickle")
 
-model_fake_news = load_model("fake_news_model.h5")
-model_sentiment = load_model("sentiment_model.h5")
+model_fake_news = load_model("Fake_News_Detection/fake_news_model.h5")
+model_sentiment = load_model("Sentiment_Detection/sentiment_model.h5")
 
 tool = language_tool_python.LanguageTool('en-US')
 
