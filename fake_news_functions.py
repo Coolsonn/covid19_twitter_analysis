@@ -1,5 +1,6 @@
 import re
 import pickle
+import numpy as np
 from nltk.corpus import stopwords
 import string
 import keras
