@@ -1,0 +1,79 @@
+#:import utils kivy.utils
+
+<Button>
+	font_size:40
+	background_normal: ''
+	background_color: utils.get_color_from_hex('#99d0e8')
+
+<TextInput>
+	font_size: 50
+
+<Label>
+	font_size: 40
+
+<MyLayout>
+	tweet_input: tweet_input
+	canvas.before:
+		Color:
+			rgba: (1, 1, 1, 1)
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+	BoxLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+		spacing: 20
+		padding: 50
+		GridLayout:
+			cols: 2
+			size: root.width, root.height
+			Label:
+				id: tweet_label
+				text: "Please input the text of the tweet:"
+				size_hint: (0.5, 0.5)
+				background_normal: ''
+				background_color: (153/255, 208/255, 232/255, 1)
+				
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						size: self.size
+						pos: self.pos
+				bold: True
+
+			TextInput:
+				id:tweet_input
+				multiline: True
+				size_hint: (0.5, 0.5)
+
+		Label:
+			id: tweet_predicted_label
+			size: root.width, root.height
+			font_size: 30
+			background_normal: ''
+			background_color: (153/255, 208/255, 232/255, 1)
+				
+			canvas.before:
+				Color:
+					rgba: self.background_color
+				Rectangle:
+					size: self.size
+					pos: self.pos
+			text_size: self.size
+			halign: 'center'
+			valign: 'middle'
+			bold: True
+
+		Button:
+			text: "Submit"
+			on_press: root.press()
+
+			background_normal: ''
+			background_color: (0,0,1,0.5)
+			background_color: utils.get_color_from_hex('#99d0e8')
+			bold: True
+
+			size_hint: (1, 0.5)
+			
